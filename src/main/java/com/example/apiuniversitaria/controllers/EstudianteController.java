@@ -47,11 +47,12 @@ public class EstudianteController {
     }
 
     @GetMapping("/{documento}")
-    public ResponseEntity<Void> buscar(@PathVariable String documento){
-        estudianteService.borrar(documento);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
+    public ResponseEntity<Estudiante> buscar(@PathVariable String documento){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(estudianteService.buscar(documento));
 
+    }
 
     @PutMapping("/{documento}")
     public ResponseEntity<Estudiante> actualizar(@PathVariable String documento,
@@ -62,9 +63,8 @@ public class EstudianteController {
     }
 
     @DeleteMapping("/{documento}")
-    public ResponseEntity<Estudiante> borrar(@PathVariable String documento){;
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(estudianteService.buscar(documento));
+    public ResponseEntity<Void> borrar(@PathVariable String documento){;
+        estudianteService.borrar(documento);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

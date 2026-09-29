@@ -28,8 +28,9 @@ public class EstudianteServiceImpl implements EstudianteService {
     @Override
     public Estudiante crear(CreateEstudianteRequest estudianteRequest) {
 
-        Estudiante estudiante = EstudianteMapper.INSTANCE.toEstudiante(estudianteRequest);
-        /*Estudiante estudiante = new Estudiante();
+         Estudiante estudiante = EstudianteMapper.INSTANCE.toEstudiante(estudianteRequest);
+
+         /*Estudiante estudiante = new Estudiante();
         estudiante.setDocumento(estudianteRequest.getDocumento());
         estudiante.setEdad(estudianteRequest.getEdad());
         estudiante.setNombre(estudianteRequest.getNombre());
@@ -45,9 +46,11 @@ public class EstudianteServiceImpl implements EstudianteService {
     public List<EstudianteResponse> listar() {
 
         List<Estudiante> listaEstudiantes = estudianteRepository.findAll();
+
         return listaEstudiantes.stream()
                 .map(EstudianteMapper.INSTANCE::toEstudianteResponse)
                 .toList();
+
         /*return listaEstudiantes.stream().map(
                 estudiante -> {
                     EstudianteResponse response = new EstudianteResponse();
@@ -89,11 +92,6 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     @Override
     public Estudiante buscar(String documento) {
-        for(int i = 0; i < estudianteList.size(); i++){
-            if(estudianteList.get(i).getDocumento().equalsIgnoreCase(documento)){
-                return estudianteList.get(i);
-            }
-        }
-        return null;
+        return estudianteRepository.findByDocumento(documento);
     }
 }
